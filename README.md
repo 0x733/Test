@@ -1,1 +1,1 @@
-# Test
+[![Automate bahis tahminleri table](https://github.com/0x733/Test/actions/workflows/automate.yml/badge.svg?branch=main)](https://github.com/0x733/Test/actions/workflows/automate.yml)
