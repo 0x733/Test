@@ -1,0 +1,36 @@
+name: Automate bahis tahminleri table
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  automate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: $GITHUB_REPOSITORY
+          ref: $GITHUB_REF
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python script
+        run: |
+          pwd
+          ls -l
+          python script.py
+        working-directory: $GITHUB_WORKSPACE
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_URL: ${{ github.repository_url }}
+        run: |
+          git add bahis_tahminleri.md
+          git commit -m "Automated update of bahis tahminleri table"
+          git push $REPO_URL
